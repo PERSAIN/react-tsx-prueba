@@ -1,9 +1,13 @@
 import React from 'react';
 
-const Details : React.FC = () => {
+const Details: React.FC = () => {
   return (
-    <div>Details</div>
+    <div>
+      <header className='home-header'>
+        <h1 className='text-dark'>Welcome to my search engine</h1>
+      </header>
+    </div>
   );
-}
+};
 
 export default Details;

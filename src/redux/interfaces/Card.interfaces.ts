@@ -1,7 +1,7 @@
 import { ActionTypes } from '../enums/ActionTypes';
 
 export interface ICard {
-  id: number;
+  _id: string;
   title: string;
   photoPath: string;
   description: string;
@@ -14,4 +14,9 @@ export interface ICard {
 export interface IFecthCardsAction {
   type: ActionTypes.FETCH_GET_CARDS;
   payload: ICard[];
+}
+
+export interface ISetInfoCardAction {
+  type: ActionTypes.SET_CARD_INFO;
+  payload: ICard;
 }
