@@ -12,6 +12,7 @@ import './Home.css';
 interface HomeProps {
   cards: ICard[];
   fetchCards(value: string): any;
+  setInfoCard(value: ICard): any;
 }
 
 const mapStateToProps = (state: StoreState): { cards: ICard[] } => {
@@ -19,6 +20,7 @@ const mapStateToProps = (state: StoreState): { cards: ICard[] } => {
     cards: state.cards,
   };
 };
+
 
 const _Home: React.FC<HomeProps> = (props) => {
   let navigate = useNavigate();
@@ -44,7 +46,7 @@ const _Home: React.FC<HomeProps> = (props) => {
   };
 
   const selectedCard = (card: ICard): void => {
-    setInfoCard(card);
+    props.setInfoCard(card);
     navigate('/details');
   };
 
@@ -106,6 +108,6 @@ const _Home: React.FC<HomeProps> = (props) => {
   );
 };
 
-const Home = connect(mapStateToProps, { fetchCards })(_Home);
+const Home = connect(mapStateToProps, { fetchCards, setInfoCard })(_Home);
 
 export default Home;

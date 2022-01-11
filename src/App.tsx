@@ -9,7 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const App: React.FC = (props) => {
   const data = useSelector((state) => console.log('este es el state', state));
-
+  
   return (
     <Router>
       <Routes>
