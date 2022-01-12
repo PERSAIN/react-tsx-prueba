@@ -7,3 +7,11 @@
   text-align: center;
 }
 
+.card-info {
+  cursor: pointer;
+}
+
+.card-info:hover{
+  border: 1px solid #333;
+}
+

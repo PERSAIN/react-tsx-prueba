@@ -21,7 +21,6 @@ const mapStateToProps = (state: StoreState): { cards: ICard[] } => {
   };
 };
 
-
 const _Home: React.FC<HomeProps> = (props) => {
   let navigate = useNavigate();
 
@@ -31,6 +30,18 @@ const _Home: React.FC<HomeProps> = (props) => {
   useEffect(() => {
     cardsState(props.cards);
   }, [props.cards]);
+
+  const handleOnKeyDown = async (
+    event: React.KeyboardEvent<HTMLDivElement>
+  ): Promise<void> => {
+    if (event.key === 'Enter') {
+      try {
+        await props.fetchCards(search);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   const handleClick = async (): Promise<void> => {
     try {
@@ -53,7 +64,7 @@ const _Home: React.FC<HomeProps> = (props) => {
   const renderListCards = (): JSX.Element[] => {
     return cards.map((card: ICard) => {
       return (
-        <div className='row'>
+        <div className='row mt-5'>
           <div className='col-lg-3'>
             <img
               style={{ height: '100%', width: '100%' }}
@@ -62,10 +73,11 @@ const _Home: React.FC<HomeProps> = (props) => {
             />
           </div>
           <div className='col-lg-9'>
-            <div className='container' onClick={() => selectedCard(card)}>
-              <h1>{card.title}</h1>
+            <div className='container'>
+              <h1 className='card-info' onClick={() => selectedCard(card)}>
+                {card.title}
+              </h1>
               <h2>{card.shortDescription}</h2>
-              <p>{card.description}</p>
             </div>
           </div>
         </div>
@@ -74,6 +86,7 @@ const _Home: React.FC<HomeProps> = (props) => {
   };
 
   const filter = (cardSearched: string): void => {
+    // eslint-disable-next-line array-callback-return
     let cards = props.cards.filter((element: ICard) => {
       if (element.title.toLowerCase().includes(cardSearched.toLowerCase()))
         return element;
@@ -94,13 +107,14 @@ const _Home: React.FC<HomeProps> = (props) => {
               value={search}
               placeholder='search by title'
               onChange={handleChange}
+              onKeyDown={(e) => handleOnKeyDown(e)}
             />
           </div>
           <div className='col-lg-2'>
             <button className='btn btn-primary' onClick={handleClick}>
               <FontAwesomeIcon icon={faSearch} />
             </button>
-          </div >
+          </div>
         </div>
       </div>
       <div className='container'>{renderListCards()}</div>
